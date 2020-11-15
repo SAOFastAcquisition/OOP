@@ -19,13 +19,15 @@ class Wind:
         self.calc = tk.Entry(self.wind, width=25, borderwidth=5, justify='right')#.grid(column=0, row=0, columnspan=4)
 
         # Buttons
+        but = [0] * 11
         for i in range(10):
             if i == 0:
-                tk.Button(self.wind, text=f'{i}', font=('consolas', 20), width=3, height=1, relief='groove',
-                                      command=lambda: self.ins_num(i)).grid(row=7 - (i + 2) // 3, column=i, padx=5, pady=5)
+                but[i] = CalcButton(self, self.wind, i, 7 - (i + 2) // 3, column=i)
             else:
-                tk.Button(self.wind, text=f'{i}', font=('consolas', 20), width=3, height=1, relief='groove'). \
-                    grid(row=7 - (i + 2) // 3, column=(i - 1) % 3, padx=5, pady=5)
+                but[i] = CalcButton(self, self.wind, i, 7 - (i + 2) // 3, column=(i - 1) % 3)
+        #             grid(row=, column=, )
+        # but1 = CalcButton(self, self.wind, 1, 1, 0)
+        # self.but1.grid(row=1, column=0)
 
         self.btn_del = tk.Button(self.wind, text='Quit', command=quit)
 
@@ -44,6 +46,14 @@ class Wind:
 
     def del_entry(self):
         self.entr1.delete(0, tk.END)
+
+
+class CalcButton:
+    def __init__(self, obj, wind, digit, row, column):
+        # self.button = tk.Tk()
+        self.button = tk.Button(wind, text=f'{digit}', font=('consolas', 20), width=3, height=1, relief='groove',
+              command=lambda: obj.ins_num(digit))
+        self.button.grid(row=row, column=column, padx=5, pady=5)
 
 
 if __name__ == '__main__':
