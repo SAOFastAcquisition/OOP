@@ -16,7 +16,8 @@ class Wind:
             photo_icon = tk.PhotoImage(file=icon)
             self.wind.iconphoto(False, photo_icon)
 
-        self.calc = tk.Entry(self.wind, width=25, borderwidth=5, justify='right')#.grid(column=0, row=0, columnspan=4)
+        self.calc = tk.Entry(self.wind, width=15, borderwidth=5, justify='right',
+                             font=('consolas', 18))  # .grid(column=0, row=0, columnspan=4)
 
         # Buttons
         but = [0] * 11
@@ -25,34 +26,36 @@ class Wind:
                 but[i] = CalcButton(self, self.wind, i, 7 - (i + 2) // 3, column=i)
             else:
                 but[i] = CalcButton(self, self.wind, i, 7 - (i + 2) // 3, column=(i - 1) % 3)
-        #             grid(row=, column=, )
-        # but1 = CalcButton(self, self.wind, 1, 1, 0)
-        # self.but1.grid(row=1, column=0)
 
-        self.btn_del = tk.Button(self.wind, text='Quit', command=quit)
+        self.btn_del = tk.Button(self.wind, text='Quit', font=('consolas', 20), height=1, relief='groove', command=quit)
+        self.btn_clear = tk.Button(self.wind, text='C', font=('consolas', 20), width=3, height=1, relief='groove',
+                                   command=self.del_entry)
 
     def ins_num(self, i):
         num = self.calc.get()
         num = num + str(i)
+        if len(num) > 1:
+            if (num[0] == '0') & (num[1] != '.'):
+                num = num[1:len(num)]
         self.calc.delete(0, tk.END)
         self.calc.insert(0, num)
 
     def widget_draw(self):
-        self.calc.grid(column=0, row=0, columnspan=4)
+        self.calc.grid(column=0, row=0, columnspan=4, stick='we')
         # Buttons
-
-        # self.btn_del.grid(column=0, row=5, columnspan=2)
+        self.btn_clear.grid(column=1, row=7, columnspan=2, stick='wens', padx=5, pady=5)
+        self.btn_del.grid(column=0, row=8, columnspan=3, stick='wens', padx=5, pady=5)
         self.wind.mainloop()
 
     def del_entry(self):
-        self.entr1.delete(0, tk.END)
+        self.calc.delete(0, tk.END)
 
 
 class CalcButton:
     def __init__(self, obj, wind, digit, row, column):
         # self.button = tk.Tk()
         self.button = tk.Button(wind, text=f'{digit}', font=('consolas', 20), width=3, height=1, relief='groove',
-              command=lambda: obj.ins_num(digit))
+                                command=lambda: obj.ins_num(digit))
         self.button.grid(row=row, column=column, padx=5, pady=5)
 
 
