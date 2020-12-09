@@ -39,6 +39,7 @@ class Wind:
         self.show_widget()
         # self.draw_widgets()
         self.wind.mainloop()
+        # comment
 
     def btn3_action(self):
         tk.Label(self.wind, width=15, height=2, bg='red', text='First').pack(side='left', padx=10)
