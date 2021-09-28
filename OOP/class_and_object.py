@@ -2,8 +2,7 @@ import matplotlib.pyplot as plt
 
 
 class Gates:
-    # arg = [i for i in range(100)]
-    # ord = [0.1 * i for i in range(100)]
+
     def __init__(self, arg=[i for i in range(100)], ord=[i for i in range(100)]):
         if len(arg) == len(ord):
             self.arg = arg
